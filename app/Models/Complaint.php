@@ -19,9 +19,13 @@ class Complaint extends Model
         'guest_telp',
     ];
 
+    protected $with = ['user', 'response'];
+
     public function user() {
         return $this->belongsTo(User::class);
     }
 
-
+    public function response() {
+        return $this->hasMany(ComplaintResponse::class, 'complaint_id');
+    }
 }

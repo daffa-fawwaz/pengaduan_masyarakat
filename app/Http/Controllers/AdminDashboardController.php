@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Complaint;
 
 class AdminDashboardController extends Controller
 {
@@ -11,7 +12,12 @@ class AdminDashboardController extends Controller
      */
     public function index()
     {
-        return view('Dashboard.admin-role.index');
+        return view('Dashboard.admin-role.index', [
+            'complaints_all' => Complaint::count(),
+            'complaints_pending' => Complaint::where('status', 'pending')->count(),
+            'complaints_proses' => Complaint::where('status', 'proses')->count(),
+            'complaints_selesai' => Complaint::where('status', 'selesai')->count()
+        ]);
     }
 
     /**
